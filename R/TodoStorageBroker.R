@@ -1,6 +1,6 @@
 library(dplyr)
 
-TodoBroker.mock <- \() {
+TodoStorageBroker.mock <- \() {
   todos <- data.frame(
     Id     = c('7ab3df6f-2e8f-44b4-87bf-3004cf1c16ae',
                '7bfef861-6fe9-46da-9ad2-6a58779ccdcd',

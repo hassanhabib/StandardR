@@ -1,4 +1,4 @@
-TodoService <- \(broker) {
+TodoStorageService <- \(broker) {
   service <- list()
   service[["AddTodo"]]    <- \(todo) todo |> broker[["CreateTodo"]]()
   service[["GetTodos"]]   <- \()             broker[["RetrieveTodos"]]()

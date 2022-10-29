@@ -1,7 +1,7 @@
-test_that("todo |> TodoService[['AddTodo']]() add todo to data store", {
+test_that("todo |> TodoStorageService[['AddTodo']]() add todo to data store", {
   # Given
-  broker  <- TodoBroker.mock()
-  service <- TodoService(broker)
+  broker  <- TodoStorageBroker.mock()
+  service <- TodoStorageService(broker)
 
   id     <- '5ab2da6f-2e8f-44b4-74bf-2004df1c16ab'
   task   <- 'Task.4'
@@ -25,10 +25,10 @@ test_that("todo |> TodoService[['AddTodo']]() add todo to data store", {
     filter(Id == insertedTodo[["Id"]]) |>
       expect_equal(expectedTodo)
 })
-test_that("TodoService[['GetTodos']]() retrive all todos from data store", {
+test_that("TodoStorageService[['GetTodos']]() retrive all todos from data store", {
   # Given
-  broker  <- TodoBroker.mock()
-  service <- TodoService(broker)
+  broker  <- TodoStorageBroker.mock()
+  service <- TodoStorageService(broker)
 
   # When
   todos <- service[["GetTodos"]]()
@@ -37,10 +37,10 @@ test_that("TodoService[['GetTodos']]() retrive all todos from data store", {
   broker[["RetrieveTodos"]]() |>
     expect_equal(todos)
 })
-test_that("todo |> TodoService[['UpdateTodo']]() updates todo in data store", {
+test_that("todo |> TodoStorageService[['UpdateTodo']]() updates todo in data store", {
   # Given
-  broker  <- TodoBroker.mock()
-  service <- TodoService(broker)
+  broker  <- TodoStorageBroker.mock()
+  service <- TodoStorageService(broker)
 
   id     <- '7ab3df6f-2e8f-44b4-87bf-3004cf1c16ae'
   task   <- 'Task.1'
@@ -66,8 +66,8 @@ test_that("todo |> TodoService[['UpdateTodo']]() updates todo in data store", {
 })
 test_that("Id |> Todo.Service[['DeleteTodo']]() removes todo from data store", {
   # Given
-  broker  <- TodoBroker.mock()
-  service <- TodoService(broker)
+  broker  <- TodoStorageBroker.mock()
+  service <- TodoStorageService(broker)
 
   id     <- '7ab3df6f-2e8f-44b4-87bf-3004cf1c16ae'
 
