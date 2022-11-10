@@ -21,7 +21,7 @@ Imports:
     stringr
 Remotes: 
     FlippieCoetser/Storage
-Suggests: 
-    testthat (>= 3.0.0),
+Suggests:
+    shinytest2,
     uuid
 Config/testthat/edition: 3
