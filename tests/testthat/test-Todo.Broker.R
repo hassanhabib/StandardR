@@ -20,3 +20,20 @@ test_that("configuration |> Todo.Broker() returns a list of operations",{
     is.list() |>
       expect_equal(TRUE)
 })
+
+test_that("todo.broker instance contain Create operation",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()
+
+  # When
+  todo.broker <- 
+    storage |> Todo.Broker()
+
+  # Then
+  todo.broker[['Create']] |>
+    is.null()             |>
+      expect_equal(FALSE) 
+})
