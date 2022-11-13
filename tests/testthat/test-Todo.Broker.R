@@ -155,3 +155,21 @@ test_that("id |> todo.broker[['RetrieveById']]() retrieves todo with matching id
   retrieved.todo[['Task']]   |> expect_equal(existing.todo[["Task"]])
   retrieved.todo[['Status']] |> expect_equal(existing.todo[["Status"]])
 })
+
+test_that("todo.broker instance has Update operation",{
+    # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()
+
+  # When
+  todo.broker <- 
+    storage |> Todo.Broker()
+
+  # Then
+  todo.broker[['Update']] |>
+    is.null()             |>
+      expect_equal(FALSE) 
+  
+})
