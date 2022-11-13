@@ -208,3 +208,20 @@ test_that("todo |> broker[['Update']]() updates existing todo in storage",{
   updated.todo[['Status']] |> expect_equal(retrieved.todo[['Status']])
 
 })
+
+test_that("todo.broker instance has Delete operation",{
+    # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()
+
+  # When
+  todo.broker <- 
+    storage |> Todo.Broker()
+
+  # Then
+  todo.broker[['Delete']] |>
+    is.null()             |>
+      expect_equal(FALSE) 
+})
