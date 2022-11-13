@@ -198,9 +198,13 @@ test_that("todo |> broker[['Update']]() updates existing todo in storage",{
   # When
   updated.todo |> todo.broker[['Update']]()
   
+  retrieved.todo <-
+    updated.todo[['Id']] |>
+      storage[['Todo']][['SelectWhereId']]()
+  
   # Then
-  updated.todo[['Id']] |>
-    storage[['Todo']][['SelectWhereId']]() |>
-      all_equal(expected.todo) |> 
-        expect_equal(TRUE)
+  updated.todo[['Id']]     |> expect_equal(retrieved.todo[['Id']])
+  updated.todo[['Task']]   |> expect_equal(retrieved.todo[['Task']])
+  updated.todo[['Status']] |> expect_equal(retrieved.todo[['Status']])
+
 })
