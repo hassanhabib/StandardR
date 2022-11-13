@@ -125,3 +125,33 @@ test_that("todo.broker instance has RetrieveById operation",{
       expect_equal(FALSE) 
   
 })
+
+test_that("id |> todo.broker[['RetrieveById']]() retrieves todo with matching id from storage",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> 
+      Storage::Mock.Storage.Service()
+
+  todo.broker <- 
+    storage |>
+      Todo.Broker()
+
+  existing.todo <- 
+    storage[['Todo']][['Select']]() |> 
+      tail(1)
+
+  input.todo <- existing.todo
+  expected.todo <- existing.todo
+  
+  # When
+  retrieved.todo <- 
+    input.todo[['Id']] |> 
+      todo.broker[['RetrieveById']]()
+  
+  # Then
+  retrieved.todo |>
+    all_equal(expected.todo) |> 
+      expect_equal(TRUE)
+})
