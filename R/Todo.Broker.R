@@ -17,5 +17,9 @@ Todo.Broker <- \(storage){
         todo |> storage[['Todo']][['Update']]()
     }
 
+    operations[['Delete']] <- \(id){
+        
+    }
+
     return(operations)
 }
