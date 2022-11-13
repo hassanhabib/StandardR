@@ -9,5 +9,9 @@ Todo.Broker <- \(storage){
         ...  |> storage[['Todo']][['Select']]()   
     }
 
+    operations[['RetrieveById']] <- \(id){
+        
+    }
+
     return(operations)
 }
