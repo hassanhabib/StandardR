@@ -155,3 +155,56 @@ test_that("id |> todo.broker[['RetrieveById']]() retrieves todo with matching id
   retrieved.todo[['Task']]   |> expect_equal(existing.todo[["Task"]])
   retrieved.todo[['Status']] |> expect_equal(existing.todo[["Status"]])
 })
+
+test_that("todo.broker instance has Update operation",{
+    # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()
+
+  # When
+  todo.broker <- 
+    storage |> Todo.Broker()
+
+  # Then
+  todo.broker[['Update']] |>
+    is.null()             |>
+      expect_equal(FALSE) 
+  
+})
+
+test_that("todo |> broker[['Update']]() updates existing todo in storage",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> 
+      Storage::Mock.Storage.Service()
+
+  todo.broker <- 
+    storage |>
+      Todo.Broker()
+
+  existing.todo <- 
+    storage[['Todo']][['Select']]() |> 
+      tail(1)
+
+  updated.todo <- existing.todo
+  updated.todo[['Status']] <- 'Done'
+
+  expected.todo <- updated.todo
+  
+  # When
+  updated.todo |> todo.broker[['Update']]()
+  
+  retrieved.todo <-
+    updated.todo[['Id']] |>
+      storage[['Todo']][['SelectWhereId']]()
+  
+  # Then
+  updated.todo[['Id']]     |> expect_equal(retrieved.todo[['Id']])
+  updated.todo[['Task']]   |> expect_equal(retrieved.todo[['Task']])
+  updated.todo[['Status']] |> expect_equal(retrieved.todo[['Status']])
+
+})
