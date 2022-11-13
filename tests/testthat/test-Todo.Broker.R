@@ -173,3 +173,34 @@ test_that("todo.broker instance has Update operation",{
       expect_equal(FALSE) 
   
 })
+
+test_that("todo |> broker[['Update']]() updates existing todo in storage",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> 
+      Storage::Mock.Storage.Service()
+
+  todo.broker <- 
+    storage |>
+      Todo.Broker()
+
+  existing.todo <- 
+    storage[['Todo']][['Select']]() |> 
+      tail(1)
+
+  updated.todo <- existing.todo
+  updated.todo[['Status']] <- 'Done'
+
+  expected.todo <- updated.todo
+  
+  # When
+  updated.todo |> todo.broker[['Update']]()
+  
+  # Then
+  updated.todo[['Id']] |>
+    storage[['Todo']][['SelectWhereId']]() |>
+      all_equal(expected.todo) |> 
+        expect_equal(TRUE)
+})
