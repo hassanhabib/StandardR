@@ -101,7 +101,7 @@ test_that("todo.broker[['Retrieve']]() retrieves todos from storage",{
 
 
   # When
-  todos <- todo.broker[['Retrieved']]()
+  todos <- todo.broker[['Retrieve']]()
 
   # Then
   storage[['Todo']][['Select']]() |>

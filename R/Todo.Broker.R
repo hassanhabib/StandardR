@@ -6,7 +6,7 @@ Todo.Broker <- \(storage){
     }
 
     operations[['Retrieve']] <- \(...){
-        
+        ...  |> storage[['Todo']][['Select']]()   
     }
 
     return(operations)
