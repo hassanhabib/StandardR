@@ -208,3 +208,47 @@ test_that("todo |> broker[['Update']]() updates existing todo in storage",{
   updated.todo[['Status']] |> expect_equal(retrieved.todo[['Status']])
 
 })
+
+test_that("todo.broker instance has Delete operation",{
+    # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()
+
+  # When
+  todo.broker <- 
+    storage |> Todo.Broker()
+
+  # Then
+  todo.broker[['Delete']] |>
+    is.null()             |>
+      expect_equal(FALSE) 
+})
+
+test_that("id |> todo.broker[['Delete']]() deletes todo with matching id from storage",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> 
+      Storage::Mock.Storage.Service()
+
+  todo.broker <- 
+    storage |>
+      Todo.Broker()
+
+  existing.todo <- 
+    storage[['Todo']][['Select']]() |> 
+      tail(1)
+
+  # When
+  existing.todo[['Id']] |>
+    todo.broker[['Delete']]()
+
+  # Then
+  existing.todo[['Id']] |>
+    storage[['Todo']][['SelectWhereId']]() |>
+      nrow() |>
+        expect_equal(0)
+})
