@@ -21,7 +21,7 @@ test_that("configuration |> Todo.Broker() returns a list of operations",{
       expect_equal(TRUE)
 })
 
-test_that("todo.broker instance contain Create operation",{
+test_that("todo.broker instance has Create operation",{
   # Given
   configuration <- data.frame()
   
