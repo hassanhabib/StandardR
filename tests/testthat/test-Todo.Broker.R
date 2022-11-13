@@ -151,7 +151,7 @@ test_that("id |> todo.broker[['RetrieveById']]() retrieves todo with matching id
       todo.broker[['RetrieveById']]()
   
   # Then
-  retrieved.todo |>
-    all_equal(expected.todo) |> 
-      expect_equal(TRUE)
+  retrieved.todo[['Id']]     |> expect_equal(existing.todo[["Id"]])
+  retrieved.todo[['Task']]   |> expect_equal(existing.todo[["Task"]])
+  retrieved.todo[['Status']] |> expect_equal(existing.todo[["Status"]])
 })
