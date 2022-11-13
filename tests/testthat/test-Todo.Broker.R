@@ -86,3 +86,24 @@ test_that("todo.broker instance has Retrieve operation",{
       expect_equal(FALSE) 
   
 })
+
+test_that("todo.broker[['Retrieve']]() retrieves todos from storage",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> 
+      Storage::Mock.Storage.Service()
+
+  todo.broker <- 
+    storage |>
+      Todo.Broker()
+
+
+  # When
+  todos <- todo.broker[['Retrieved']]()
+
+  # Then
+  storage[['Todo']][['Select']]() |>
+      expect_equal(todos)
+})
