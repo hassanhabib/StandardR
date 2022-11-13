@@ -68,3 +68,21 @@ test_that("todo |> todo.broker[['Create']]() creates a new todo into storage",{
     storage[['Todo']][['SelectWhereId']]() |>
       expect_equal(expected.todo)
 })
+
+test_that("todo.broker instance has Retrieve operation",{
+    # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()
+
+  # When
+  todo.broker <- 
+    storage |> Todo.Broker()
+
+  # Then
+  todo.broker[['Retrieve']] |>
+    is.null()             |>
+      expect_equal(FALSE) 
+  
+})
