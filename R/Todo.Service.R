@@ -30,6 +30,9 @@ Todo.Service <- \(broker){
 
   services[['Update']] <- \(todo){
     todo |>
+      validate[['Todo']]()
+    
+    todo |>
       broker[['Update']]()
 
     return(data.frame())
