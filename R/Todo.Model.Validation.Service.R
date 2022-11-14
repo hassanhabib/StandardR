@@ -17,17 +17,17 @@ Todo.Model.Validation.Service <- \(){
   }
 
   validators[["HasId"]]     <- \(todo) {
-    todo[["Id"]] |> is.null() |> exception[["IdIsNull"]]()
+    todo[["Id"]] |> is.null() |> exception[["TodoIdIsNull"]]()
     return(todo)
   }
 
   validators[["HasTask"]]   <- \(todo) {
-    todo[["Task"]] |> is.null() |> exception[["TaskIsNull"]]()
+    todo[["Task"]] |> is.null() |> exception[["TodoTaskIsNull"]]()
     return(todo)
   }
 
   validators[["HasStatus"]] <- \(todo) {
-    todo[["Status"]] |> is.null() |> exception[["StatusIsNull"]]()
+    todo[["Status"]] |> is.null() |> exception[["TodoStatusIsNull"]]()
       return(todo)
   }
 

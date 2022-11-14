@@ -46,27 +46,27 @@ test_that("TRUE |> exception[['TodoIsNull']]() should throw TodoIsNull error",{
       expect_error(error)
 })
 
-test_that("todo.model.exceptions instance has IdIsNull exception",{
+test_that("todo.model.exceptions instance has TodoIdIsNull exception",{
   # Given
   exception <- Todo.Model.Exceptions()
 
   # Then
-  exception[["IdIsNull"]]  |>
+  exception[["TodoIdIsNull"]]  |>
     is.null()             |>
       expect_equal(FALSE)
 })
 
-test_that("FALSE |> exception[['IdIsNull']]() should not throw error",{
+test_that("FALSE |> exception[['TodoIdIsNull']]() should not throw error",{
   # Given
   exception <- Todo.Model.Exceptions()
 
   # Then
   FALSE |>
-    exception[["IdIsNull"]]() |>
+    exception[["TodoIdIsNull"]]() |>
       expect_no_error()
 })
 
-test_that("TRUE |> exception[['IdIsNull']]() should throw IdIsNull error",{
+test_that("TRUE |> exception[['TodoIdIsNull']]() should throw TodoIdIsNull error",{
   # Given
   exception <- Todo.Model.Exceptions()
 
@@ -74,31 +74,31 @@ test_that("TRUE |> exception[['IdIsNull']]() should throw IdIsNull error",{
 
   # Then
   TRUE |>
-    exception[["IdIsNull"]]() |>
+    exception[["TodoIdIsNull"]]() |>
       expect_error(error)
 })
 
-test_that("todo.model.exceptions instance has TaskIsNull exception",{
+test_that("todo.model.exceptions instance has TodoTaskIsNull exception",{
   # Given
   exception <- Todo.Model.Exceptions()
 
   # Then
-  exception[["TaskIsNull"]] |>
+  exception[["TodoTaskIsNull"]] |>
     is.null() |>
       expect_equal(FALSE)
 })
 
-test_that("FALSE |> exception[['TaskIsNull']]() should not throw error",{
+test_that("FALSE |> exception[['TodoTaskIsNull']]() should not throw error",{
   # Given
   exception <- Todo.Model.Exceptions()
 
   # Then
   FALSE |>
-    exception[["TaskIsNull"]]() |>
+    exception[["TodoTaskIsNull"]]() |>
       expect_no_error()
 })
 
-test_that("TRUE |> exception[['TaskIsNull']]() should throw TaskIsNull error",{
+test_that("TRUE |> exception[['TodoTaskIsNull']]() should throw TodoTaskIsNull error",{
   # Given
   exception <- Todo.Model.Exceptions()
 
@@ -106,31 +106,31 @@ test_that("TRUE |> exception[['TaskIsNull']]() should throw TaskIsNull error",{
 
   # Then
   TRUE |>
-    exception[["TaskIsNull"]]() |>
+    exception[["TodoTaskIsNull"]]() |>
       expect_error(error)
 })
 
-test_that("todo.model.exceptions instance has StatusIsNull exception",{
+test_that("todo.model.exceptions instance has TodoStatusIsNull exception",{
   # Given
   exception <- Todo.Model.Exceptions()
 
   # Then
-  exception[["StatusIsNull"]]  |>
+  exception[["TodoStatusIsNull"]]  |>
     is.null()             |>
       expect_equal(FALSE)
 })
 
-test_that("FALSE |> exception[['StatusIsNull']]() should not throw error",{
+test_that("FALSE |> exception[['TodoStatusIsNull']]() should not throw error",{
   # Given
   exception <- Todo.Model.Exceptions()
 
   # Then
   FALSE |>
-    exception[["StatusIsNull"]]() |>
+    exception[["TodoStatusIsNull"]]() |>
       expect_no_error()
 })
 
-test_that("TRUE |> exception[['StatusIsNull']]() should throw StatusIsNull error",{
+test_that("TRUE |> exception[['TodoStatusIsNull']]() should throw TodoStatusIsNull error",{
   # Given
   exception <- Todo.Model.Exceptions()
 
@@ -138,7 +138,7 @@ test_that("TRUE |> exception[['StatusIsNull']]() should throw StatusIsNull error
 
   # Then
   TRUE |>
-    exception[["StatusIsNull"]]() |>
+    exception[["TodoStatusIsNull"]]() |>
       expect_error(error)
 })
 

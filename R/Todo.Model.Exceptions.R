@@ -6,15 +6,15 @@ Todo.Model.Exceptions <- \(){
     if (invoke) { stop("successful validation requires a data frame with todo")}
   }
 
-  exceptions[["IdIsNull"]]     <- \(invoke) {
+  exceptions[["TodoIdIsNull"]]     <- \(invoke) {
     if (invoke) { stop("todo data frame has no Id")}
   }
 
-  exceptions[["TaskIsNull"]]   <- \(invoke) {
+  exceptions[["TodoTaskIsNull"]]   <- \(invoke) {
     if (invoke) { stop("todo data frame has no Task")}
   }
 
-  exceptions[["StatusIsNull"]] <- \(invoke) {
+  exceptions[["TodoStatusIsNull"]] <- \(invoke) {
     if (invoke) { stop("todo data frame has no Status")}
   }
 
