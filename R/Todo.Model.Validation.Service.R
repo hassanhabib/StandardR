@@ -31,6 +31,11 @@ Todo.Model.Validation.Service <- \(){
       return(todo)
   }
 
+  validators[["IdExist"]] <- \(id) {
+    id |> is.null() |> exception[["IdIsNull"]]()
+    return(id)
+  }
+
   # Logical Logical Validation
   validators[["IsDuplicate"]] <- \(todo,todos) {
     match.count <- 

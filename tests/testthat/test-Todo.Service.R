@@ -5,7 +5,7 @@ test_that("Todo.Service Exist",{
 })
 
 test_that("broker |> Todo.Service() returns a list of services",{
-# Given
+  # Given
   configuration <- data.frame()
   
   storage <- 
@@ -232,4 +232,72 @@ test_that("todo.service[['Retrieve']]() should return a data.frame with zero of 
   todo.service[['Retrieve']]() |>
     is.data.frame()       |>
       expect_equal(TRUE)
+})
+
+test_that("todo.service instance has RetrieveById operation",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.service <-
+    storage           |> 
+      Todo.Broker()   |> 
+        Todo.Service()
+
+  # Then
+  todo.service[['RetrieveById']]  |>
+    is.null()            |>
+      expect_equal(FALSE)
+})
+
+test_that("id |> todo.service[['RetrieveById']]() should return todo if todo exist",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.broker <-
+    storage |>
+      Todo.Broker()
+  
+  todo.service <-
+    todo.broker |>
+      Todo.Service()
+  
+  todo <- 
+    todo.service[['Retrieve']]() |> head(1) 
+
+  # When
+  retrieved.todo <-
+    todo[['Id']] |> todo.service[['RetrieveById']]()
+    
+  # Then
+  retrieved.todo  |>
+    expect_equal(todo)
+})
+
+test_that("id |> todo.service[['RetrieveById']]() throws IdIsNull exception if id is null",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.broker <-
+    storage |>
+      Todo.Broker()
+  
+  todo.service <-
+    todo.broker |>
+      Todo.Service()
+  
+  error <- 'successful validation requires an Id'
+
+  # Then
+  NULL |> 
+    todo.service[['RetrieveById']]() |>
+      expect_error(error)
 })

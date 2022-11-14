@@ -297,3 +297,38 @@ test_that("todo |> validate[['IsDuplicate']]() should throw error if todo exist 
     validate[['IsDuplicate']](todos) |>
       expect_error(error)
 })
+
+test_that("todo.model.validation.service instance has IdExist validator",{
+  # Given
+  validator <- Todo.Model.Validation.Service()
+
+  # Then
+  validator[['IdExist']] |>
+    is.null() |>
+      expect_equal(FALSE)
+})
+
+test_that("id |> validate[['IdExist']]() should not throw error if id exist",{
+  # Given
+  validate <- Todo.Model.Validation.Service()
+
+  id  <- uuid::UUIDgenerate()
+    
+  # Then
+  id |> 
+    validate[['IdExist']]() |>
+      expect_no_error()
+})
+
+test_that("id |> validate[['IdExist']]() should throw error if id is null",{
+  # Given
+  validate <- Todo.Model.Validation.Service()
+
+  id  <- NULL
+  error <- "successful validation requires an Id"
+
+  # Then
+  id |> 
+    validate[['IdExist']]() |>
+      expect_error(error)
+})
