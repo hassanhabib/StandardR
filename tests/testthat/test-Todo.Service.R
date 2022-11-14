@@ -172,3 +172,27 @@ test_that("todo |> todo.service[['Add']]() should throw error if todo is null",{
     todo.service[["Add"]]() |>
       expect_error(error)
 })
+
+test_that("todo |> todo.service[['Add']]() should throw error if todo already exist",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.broker <-
+    storage |> 
+      Todo.Broker()
+      
+  todo.service <-
+    todo.broker |> 
+        Todo.Service()
+
+  todo <- todo.broker[["Retrieve"]]() |> head(1)
+  error <- 'todo already exist, duplicate key not allowed'
+
+  # Then
+  todo |> 
+    todo.service[["Add"]]() |>
+        expect_error(error)
+})
