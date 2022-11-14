@@ -122,3 +122,40 @@ test_that("todo |> validate[['HasTask']]() should throw error if todo has no Tas
     validate[['HasTask']]() |>
       expect_error(error)
 })
+
+test_that("todo.model.validation.service instance has HasStatus validator",{
+  # Given
+  validator <- Todo.Model.Validation.Service()
+
+  # Then
+  validator[['HasStatus']] |>
+    is.null() |>
+      expect_equal(FALSE)
+})
+
+test_that("todo |> validate[['HasStatus']]() should not throw error if todo has Status exist",{
+  # Given
+  validate <- Todo.Model.Validation.Service()
+
+  todo  <- data.frame(
+    Status = 'Status'
+  )
+    
+  # Then
+  todo |> 
+    validate[['HasStatus']]() |>
+      expect_no_error()
+})
+
+test_that("todo |> validate[['HasStatus']]() should throw error if todo has no Status",{
+  # Given
+  validate <- Todo.Model.Validation.Service()
+
+  todo  <- data.frame()
+  error <- "todo data frame has no Status"
+
+  # Then
+  todo |> 
+    validate[['HasStatus']]() |>
+      expect_error(error)
+})
