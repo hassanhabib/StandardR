@@ -40,6 +40,9 @@ Todo.Service <- \(broker){
 
   services[['Delete']] <- \(id) {
     id |>
+      validate[['IdExist']]()
+    
+    id |>
       broker[['Delete']]()
 
     return(data.frame())
