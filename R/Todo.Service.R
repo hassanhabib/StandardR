@@ -4,8 +4,11 @@ Todo.Service <- \(broker){
   services <- list()
 
   services[["Add"]]     <- \(todo) {
+    todos <- broker[['Select']]()
+    
     todo |>
-      validate[['Todo']]()
+      validate[['Todo']]() |>
+      validate[['IsDuplicate']](todos)
     
     todo |>
       broker[['Insert']]()

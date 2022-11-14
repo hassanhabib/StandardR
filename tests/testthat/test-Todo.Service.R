@@ -188,7 +188,7 @@ test_that("todo |> todo.service[['Add']]() should throw error if todo already ex
     todo.broker |> 
         Todo.Service()
 
-  todo <- todo.broker[["Retrieve"]]() |> head(1)
+  todo <- todo.broker[["Select"]]() |> head(1)
   error <- 'todo already exist, duplicate key not allowed'
 
   # Then
