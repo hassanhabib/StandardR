@@ -21,7 +21,7 @@ test_that("configuration |> Todo.Broker() returns a list of operations",{
       expect_equal(TRUE)
 })
 
-test_that("todo.broker instance has Create operation",{
+test_that("todo.broker instance has Insert operation",{
   # Given
   configuration <- data.frame()
   
@@ -33,12 +33,12 @@ test_that("todo.broker instance has Create operation",{
     storage |> Todo.Broker()
 
   # Then
-  todo.broker[['Create']] |>
+  todo.broker[['Insert']] |>
     is.null()             |>
       expect_equal(FALSE) 
 })
 
-test_that("todo |> todo.broker[['Create']]() creates a new todo into storage",{
+test_that("todo |> todo.broker[['Insert']]() creates a new todo into storage",{
   # Given
   configuration <- data.frame()
   
@@ -61,7 +61,7 @@ test_that("todo |> todo.broker[['Create']]() creates a new todo into storage",{
 
   # When
   new.todo |>
-    todo.broker[['Create']]()
+    todo.broker[['Insert']]()
 
   # Then
   new.todo[['Id']] |>
@@ -69,7 +69,7 @@ test_that("todo |> todo.broker[['Create']]() creates a new todo into storage",{
       expect_equal(expected.todo)
 })
 
-test_that("todo.broker instance has Retrieve operation",{
+test_that("todo.broker instance has Select operation",{
     # Given
   configuration <- data.frame()
   
@@ -81,13 +81,13 @@ test_that("todo.broker instance has Retrieve operation",{
     storage |> Todo.Broker()
 
   # Then
-  todo.broker[['Retrieve']] |>
+  todo.broker[['Select']] |>
     is.null()             |>
       expect_equal(FALSE) 
   
 })
 
-test_that("todo.broker[['Retrieve']]() retrieves todos from storage",{
+test_that("todo.broker[['Select']]() retrieves todos from storage",{
   # Given
   configuration <- data.frame()
   
@@ -101,14 +101,14 @@ test_that("todo.broker[['Retrieve']]() retrieves todos from storage",{
 
 
   # When
-  todos <- todo.broker[['Retrieve']]()
+  todos <- todo.broker[['Select']]()
 
   # Then
   storage[['Todo']][['Select']]() |>
       expect_equal(todos)
 })
 
-test_that("todo.broker instance has RetrieveById operation",{
+test_that("todo.broker instance has SelectById operation",{
     # Given
   configuration <- data.frame()
   
@@ -120,13 +120,13 @@ test_that("todo.broker instance has RetrieveById operation",{
     storage |> Todo.Broker()
 
   # Then
-  todo.broker[['RetrieveById']] |>
+  todo.broker[['SelectById']] |>
     is.null()             |>
       expect_equal(FALSE) 
   
 })
 
-test_that("id |> todo.broker[['RetrieveById']]() retrieves todo with matching id from storage",{
+test_that("id |> todo.broker[['SelectById']]() retrieves todo with matching id from storage",{
   # Given
   configuration <- data.frame()
   
@@ -148,7 +148,7 @@ test_that("id |> todo.broker[['RetrieveById']]() retrieves todo with matching id
   # When
   retrieved.todo <- 
     input.todo[['Id']] |> 
-      todo.broker[['RetrieveById']]()
+      todo.broker[['SelectById']]()
   
   # Then
   retrieved.todo[['Id']]     |> expect_equal(existing.todo[["Id"]])

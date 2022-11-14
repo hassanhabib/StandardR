@@ -1,15 +1,15 @@
 Todo.Broker <- \(storage){
     operations <- list()
 
-    operations[['Create']] <- \(todo){
+    operations[['Insert']] <- \(todo){
         todo |> storage[['Todo']][['Insert']]()
     }
 
-    operations[['Retrieve']] <- \(...){
+    operations[['Select']] <- \(...){
         ...  |> storage[['Todo']][['Select']]()   
     }
 
-    operations[['RetrieveById']] <- \(id){
+    operations[['SelectById']] <- \(id){
         id   |> storage[['Todo']][['SelectWhereId']]()
     }
 
