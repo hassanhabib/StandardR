@@ -242,3 +242,58 @@ test_that("todo |> validate[['Todo']]() should throw error if todo has no Status
     validate[['Todo']]() |>
       expect_error(error)
 })
+
+test_that("todo.model.validation.service instance has IsDuplicate validator",{
+  # Given
+  validator <- Todo.Model.Validation.Service()
+
+  # Then
+  validator[['IsDuplicate']] |>
+    is.null() |>
+      expect_equal(FALSE)
+})
+
+test_that("todo |> validate[['IsDuplicate']]() should not throw error if todo does not exist in todos",{
+  # Given
+  validate <- Todo.Model.Validation.Service()
+
+  todos <- data.frame(
+      Id     = c('7ab3df6f-2e8f-44b4-87bf-3004cf1c16ae',
+               '7bfef861-6fe9-46da-9ad2-6a58779ccdcd',
+               'd3b59bf0-14f0-4444-9ec9-1913e7256ee4'),
+    Task   = c('Task.1','Task.2','Task.3'),
+    Status = c('New','New','Done')
+  )
+
+  todo  <- data.frame(
+    Id     = uuid::UUIDgenerate(),
+    Task   = 'Task',
+    Status = 'New'
+  )
+    
+  # Then
+  todo |> 
+    validate[['IsDuplicate']](todos) |>
+      expect_no_error()
+})
+
+test_that("todo |> validate[['IsDuplicate']]() should throw error if todo exist in todos",{
+  # Given
+  validate <- Todo.Model.Validation.Service()
+
+  todos <- data.frame(
+    Id     = c('7ab3df6f-2e8f-44b4-87bf-3004cf1c16ae',
+               '7bfef861-6fe9-46da-9ad2-6a58779ccdcd',
+               'd3b59bf0-14f0-4444-9ec9-1913e7256ee4'),
+    Task   = c('Task.1','Task.2','Task.3'),
+    Status = c('New','New','Done')
+  )
+
+  todo  <- todos |> head(1)
+  error <- 'todo already exist, duplicate key not allowed'
+    
+  # Then
+  todo |> 
+    validate[['IsDuplicate']](todos) |>
+      expect_error(error)
+})
