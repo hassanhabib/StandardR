@@ -22,3 +22,50 @@ test_that("broker |> Todo.Service() returns a list of services",{
     is.list() |>
       expect_equal(TRUE)
 })
+
+test_that("todo.service instance has Add operation", {
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.service <-
+    storage           |> 
+      Todo.Broker()   |> 
+        Todo.Service()
+
+  # Then
+  todo.service[['Add']]  |>
+    is.null()            |>
+      expect_equal(FALSE)
+})
+
+test_that("todo |> todo.service[['Add']]() should add todo if todo is valid",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.broker <-
+    storage |> Todo.Broker()
+      
+  todo.service <-
+    todo.broker |> Todo.Service()
+
+  todo <- data.frame(
+    Id = uuid::UUIDgenerate(),
+    Task = 'Task',
+    Status = 'New'
+  )
+
+  # When
+  todo |> 
+    todo.service[["Add"]]()
+
+  # Then
+  todo[['Id']] |>
+    todo.broker[['SelectById']]() |>
+        expect_equal(todo)
+})
