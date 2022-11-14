@@ -301,3 +301,155 @@ test_that("id |> todo.service[['RetrieveById']]() throws IdIsNull exception if i
     todo.service[['RetrieveById']]() |>
       expect_error(error)
 })
+
+test_that("todo.service instance has Update operation",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.service <-
+    storage           |> 
+      Todo.Broker()   |> 
+        Todo.Service()
+
+  # Then
+  todo.service[['Update']]  |>
+    is.null()            |>
+      expect_equal(FALSE)
+})
+
+test_that("todo |> todo.service[['Update']]() should update todo if todo exist",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service() 
+
+  todo.broker <-
+    storage |> Todo.Broker() 
+  
+  todo.service <-
+    todo.broker |> Todo.Service()
+
+  existing.todo <- todo.broker[['Select']]() |> tail(1)
+
+  updated.todo <- existing.todo
+  updated.todo[['Status']] <- 'Done'
+
+  # When
+  updated.todo |> todo.service[['Update']]()
+
+  # Then
+  retrieved.todo <-
+    existing.todo[['Id']] |>
+    todo.broker[['SelectById']]()
+
+  retrieved.todo[['Id']]     |> expect_equal(updated.todo[['Id']])
+  retrieved.todo[['Task']]   |> expect_equal(updated.todo[['Task']])
+  retrieved.todo[['Status']] |> expect_equal(updated.todo[['Status']])
+})
+
+test_that("todo |> todo.service[['Update']]() should throw error if todo has no Id",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.broker <-
+    storage |> 
+      Todo.Broker()
+      
+  todo.service <-
+    todo.broker |> 
+        Todo.Service()
+
+  todo <- data.frame(
+    Task = 'Task',
+    Status = 'New'
+  )
+
+  error <- 'todo data frame has no Id'
+
+  # Then
+  todo |> 
+    todo.service[["Update"]]() |>
+      expect_error(error)
+})
+
+test_that("todo |> todo.service[['Update']]() should throw error if todo has no Task",{
+ # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.broker <-
+    storage |> Todo.Broker()
+      
+  todo.service <-
+    todo.broker |> Todo.Service()
+
+  todo <- data.frame(
+    Id = uuid::UUIDgenerate(),
+    Status = 'New'
+  )
+
+  error <- 'todo data frame has no Task'
+
+  # Then
+  todo |> 
+    todo.service[["Update"]]() |>
+      expect_error(error)
+})
+
+test_that("todo |> todo.service[['Update']]() should throw error if todo has no Status",{
+ # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.broker <-
+    storage |> Todo.Broker()
+      
+  todo.service <-
+    todo.broker |> Todo.Service()
+
+  todo <- data.frame(
+    Id = uuid::UUIDgenerate(),
+    Task = 'Task'
+  )
+
+  error <- 'todo data frame has no Status'
+
+  # Then
+  todo |> 
+    todo.service[["Update"]]() |>
+      expect_error(error)
+})
+
+test_that("todo |> todo.service[['Update']]() should throw error if todo is null",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.broker <-
+    storage |> Todo.Broker()
+      
+  todo.service <-
+    todo.broker |> Todo.Service()
+
+  todo <- NULL
+
+  error <- 'successful validation requires a data frame with todo'
+
+  # Then
+  todo |> 
+    todo.service[["Update"]]() |>
+      expect_error(error)
+})
