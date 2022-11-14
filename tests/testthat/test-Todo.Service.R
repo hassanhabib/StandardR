@@ -53,7 +53,7 @@ test_that("todo |> todo.service[['Add']]() should add todo if todo is valid",{
       
   todo.service <-
     todo.broker |> Todo.Service()
-
+  
   todo <- data.frame(
     Id = uuid::UUIDgenerate(),
     Task = 'Task',
@@ -67,5 +67,5 @@ test_that("todo |> todo.service[['Add']]() should add todo if todo is valid",{
   # Then
   todo[['Id']] |>
     todo.broker[['SelectById']]() |>
-        expect_equal(todo)
+      expect_equal(todo)
 })
