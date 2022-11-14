@@ -28,12 +28,19 @@ Todo.Service <- \(broker){
       broker[['SelectById']]()
   }
 
-  services[['Update']] <- \(todo){
+  services[['Update']] <- \(todo) {
     todo |>
       validate[['Todo']]()
     
     todo |>
       broker[['Update']]()
+
+    return(data.frame())
+  }
+
+  services[['Delete']] <- \(id) {
+    id |>
+      broker[['Delete']]()
 
     return(data.frame())
   }  
