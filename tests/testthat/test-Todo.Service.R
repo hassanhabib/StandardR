@@ -496,3 +496,26 @@ test_that("id |> todo.service[['Delete']]() should delete todo if todo exist",{
       nrow()           |>
         expect_equal(0)
 })
+
+test_that("id |> todo.service[['Delete']]() should throw IdIsNull exception if id is null",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.broker <-
+    storage |>
+      Todo.Broker()
+  
+  todo.service <-
+    todo.broker |>
+      Todo.Service()
+  
+  error <- 'successful validation requires an Id'
+
+  # Then
+  NULL |> 
+    todo.service[['Delete']]() |>
+      expect_error(error)
+})
