@@ -141,3 +141,35 @@ test_that("TRUE |> exception[['StatusIsNull']]() should throw StatusIsNull error
     exception[["StatusIsNull"]]() |>
       expect_error(error)
 })
+
+test_that("todo.model.exceptions instance has DuplicateKey exception",{
+  # Given
+  exception <- Todo.Model.Exceptions()
+
+  # Then
+  exception[["DuplicateKey"]]  |>
+    is.null()             |>
+      expect_equal(FALSE)
+})
+
+test_that("FALSE |> exception[['DuplicateKey']]() should not throw error",{
+  # Given
+  exception <- Todo.Model.Exceptions()
+
+  # Then
+  FALSE |>
+    exception[["DuplicateKey"]]() |>
+      expect_no_error()
+})
+
+test_that("TRUE |> exception[['DuplicateKey']]() should throw DuplicateKey error",{
+  # Given
+  exception <- Todo.Model.Exceptions()
+
+  error <- 'todo already exist, duplicate key not allowed'
+
+  # Then
+  TRUE |>
+    exception[["DuplicateKey"]]() |>
+      expect_error(error)
+})
