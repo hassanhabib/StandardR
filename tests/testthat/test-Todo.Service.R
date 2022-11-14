@@ -149,3 +149,26 @@ test_that("todo |> todo.service[['Add']]() should throw error if todo has no Sta
     todo.service[["Add"]]() |>
       expect_error(error)
 })
+
+test_that("todo |> todo.service[['Add']]() should throw error if todo is null",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.broker <-
+    storage |> Todo.Broker()
+      
+  todo.service <-
+    todo.broker |> Todo.Service()
+
+  todo <- NULL
+
+  error <- 'successful validation requires a data frame with todo'
+
+  # Then
+  todo |> 
+    todo.service[["Add"]]() |>
+      expect_error(error)
+})
