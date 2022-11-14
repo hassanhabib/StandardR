@@ -5,10 +5,7 @@ Todo.Service <- \(broker){
 
   services[["Add"]]     <- \(todo) {
     todo |>
-      validate[['TodoExist']]() |>
-      validate[['HasId']]()     |>
-      validate[['HasTask']]()   |>
-      validate[['HasStatus']]() 
+      validate[['Todo']]()
     
     todo |>
       broker[['Insert']]()
