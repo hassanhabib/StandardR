@@ -85,3 +85,40 @@ test_that("todo |> validate[['HasId']]() should throw error if todo has no Id",{
       validate[['HasId']]() |>
         expect_error(error)
 })
+
+test_that("todo.model.validation.service instance has TodoTask validator",{
+  # Given
+  validator <- Todo.Model.Validation.Service()
+
+  # Then
+  validator[['HasTask']] |>
+    is.null() |>
+      expect_equal(FALSE)
+})
+
+test_that("todo |> validate[['HasTask']]() should not throw error if todo has Task exist",{
+  # Given
+  validate <- Todo.Model.Validation.Service()
+
+  todo  <- data.frame(
+    Task = 'Task'
+  )
+    
+  # Then
+  todo |> 
+    validate[['HasTask']]() |>
+      expect_no_error()
+})
+
+test_that("todo |> validate[['HasTask']]() should throw error if todo has no Task",{
+  # Given
+  validate <- Todo.Model.Validation.Service()
+
+  todo  <- data.frame()
+  error <- "todo data frame has no Task"
+
+  # Then
+  todo |> 
+    validate[['HasTask']]() |>
+      expect_error(error)
+})
