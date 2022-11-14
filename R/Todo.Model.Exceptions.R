@@ -17,6 +17,11 @@ Todo.Model.Exceptions <- \(){
   exceptions[["StatusIsNull"]] <- \(invoke) {
     if (invoke) { stop("todo data frame has no Status")}
   }
+
+  # Logical Validation Exceptions
+  exceptions[["DuplicateKey"]]  <- \(invoke) {
+    if (invoke) { stop("todo already exist, duplicate key not allowed") }
+  }
   
   return(exceptions)
 }
