@@ -159,3 +159,86 @@ test_that("todo |> validate[['HasStatus']]() should throw error if todo has no S
     validate[['HasStatus']]() |>
       expect_error(error)
 })
+
+test_that("todo.model.validation.service instance has Todo validator",{
+  # Given
+  validator <- Todo.Model.Validation.Service()
+
+  # Then
+  validator[['Todo']] |>
+    is.null() |>
+      expect_equal(FALSE)
+})
+
+test_that("todo |> validate[['Todo']]() should not throw error if todo is valid",{
+  # Given
+  validate <- Todo.Model.Validation.Service()
+
+  todo  <- data.frame(
+    Id     = 'Id',
+    Task   = 'Task',
+    Status = 'Status'
+  )
+    
+  # Then
+  todo |> 
+    validate[['Todo']]() |>
+      expect_no_error()
+})
+
+test_that("Todo |> validate[['Todo']]() should throw error if todo is null",{
+  # Given
+  validate <- Todo.Model.Validation.Service()
+
+  todo  <- NULL
+  error <- "successful validation requires a data frame with todo"
+    
+  # Then
+  todo |> 
+    validate[['Todo']]() |>
+      expect_error(error)
+})
+
+test_that("Todo |> validate[['Todo']]() should throw error if todo has no Id",{
+  # Given
+  validate <- Todo.Model.Validation.Service()
+
+  todo  <- data.frame()
+  error <- "todo data frame has no Id"
+    
+  # Then
+  todo |> 
+    validate[['Todo']]() |>
+      expect_error(error)
+})
+
+test_that("Todo |> validate[['Todo']]() should throw error if todo has no Task",{
+  # Given
+  validate <- Todo.Model.Validation.Service()
+
+  todo  <- data.frame(
+    Id = 'Id'
+  )
+  error <- "todo data frame has no Task"
+    
+  # Then
+  todo |> 
+    validate[['Todo']]() |>
+      expect_error(error)
+})
+
+test_that("todo |> validate[['Todo']]() should throw error if todo has no Status",{
+  # Given
+  validate <- Todo.Model.Validation.Service()
+
+  todo  <- data.frame(
+    Id     = 'Id',
+    Task   = 'Task'
+  )
+  error <- "todo data frame has no Status"
+    
+  # Then
+  todo |> 
+    validate[['Todo']]() |>
+      expect_error(error)
+})
