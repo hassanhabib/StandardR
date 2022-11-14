@@ -15,67 +15,67 @@ test_that("Todo.Model.Exceptions() returns a list of exceptions",{
 })
 
 test_that("todo.model.exceptions instance has TodoIsNull exception",{
-    # Given
-    exception <- Todo.Model.Exceptions()
+  # Given
+  exception <- Todo.Model.Exceptions()
 
-    # Then
-    exception[["TodoIsNull"]]  |>
-      is.null()             |>
-        expect_equal(FALSE)
+  # Then
+  exception[["TodoIsNull"]]  |>
+    is.null()             |>
+      expect_equal(FALSE)
 })
 
 test_that("FALSE |> exception[['TodoIsNull']]() should not throw error",{
-    # Given
-    exception <- Todo.Model.Exceptions()
+  # Given
+  exception <- Todo.Model.Exceptions()
 
-    # Then
-    FALSE |>
-      exception[["TodoIsNull"]]() |>
-        expect_no_error()
+  # Then
+  FALSE |>
+    exception[["TodoIsNull"]]() |>
+      expect_no_error()
 })
 
 test_that("TRUE |> exception[['TodoIsNull']]() should throw TodoIsNull error",{
-    # Given
-    exception <- Todo.Model.Exceptions()
+  # Given
+  exception <- Todo.Model.Exceptions()
 
-    error <- 'successful validation requires a data frame with todo'
+  error <- 'successful validation requires a data frame with todo'
 
-    # Then
-    TRUE |>
-      exception[["TodoIsNull"]]() |>
-        expect_error(error)
+  # Then
+  TRUE |>
+    exception[["TodoIsNull"]]() |>
+      expect_error(error)
 })
 
 test_that("todo.model.exceptions instance has IdIsNull exception",{
-    # Given
-    exception <- Todo.Model.Exceptions()
+  # Given
+  exception <- Todo.Model.Exceptions()
 
-    # Then
-    exception[["IdIsNull"]]  |>
-        is.null()             |>
-            expect_equal(FALSE)
+  # Then
+  exception[["IdIsNull"]]  |>
+    is.null()             |>
+      expect_equal(FALSE)
 })
 
 test_that("FALSE |> exception[['IdIsNull']]() should not throw error",{
-    # Given
-    exception <- Todo.Model.Exceptions()
+  # Given
+  exception <- Todo.Model.Exceptions()
 
-    # Then
-    FALSE |>
-        exception[["IdIsNull"]]() |>
-            expect_no_error()
+  # Then
+  FALSE |>
+    exception[["IdIsNull"]]() |>
+      expect_no_error()
 })
 
 test_that("TRUE |> exception[['IdIsNull']]() should throw IdIsNull error",{
-    # Given
-    exception <- Todo.Model.Exceptions()
+  # Given
+  exception <- Todo.Model.Exceptions()
 
-    error <- 'todo data frame has no Id'
+  error <- 'todo data frame has no Id'
 
-    # Then
-    TRUE |>
-        exception[["IdIsNull"]]() |>
-            expect_error(error)
+  # Then
+  TRUE |>
+    exception[["IdIsNull"]]() |>
+      expect_error(error)
 })
 
 test_that("todo.model.exceptions instance has TaskIsNull exception",{

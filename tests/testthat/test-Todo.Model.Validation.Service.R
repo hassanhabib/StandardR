@@ -15,75 +15,75 @@ test_that("Todo.Model.Validation.Service() returns a list of validators",{
 })
 
 test_that("todo.model.validation.service instance has TodoExist validator",{
-    # Given
-    validator <- Todo.Model.Validation.Service()
+  # Given
+  validator <- Todo.Model.Validation.Service()
 
-    # Then
-    validator[['TodoExist']] |>
-      is.null() |>
-        expect_equal(FALSE)
+  # Then
+  validator[['TodoExist']] |>
+    is.null() |>
+      expect_equal(FALSE)
 })
 
 test_that("todo |> validate[['TodoExist']]() should not throw error if todo exist",{
-    # Given
-    validate <- Todo.Model.Validation.Service()
+  # Given
+  validate <- Todo.Model.Validation.Service()
 
-    todo  <- data.frame()
+  todo  <- data.frame()
     
-    # Then
-    todo |> 
-      validate[['TodoExist']]() |>
-        expect_no_error()
+  # Then
+  todo |> 
+    validate[['TodoExist']]() |>
+      expect_no_error()
 })
 
 test_that("todo |> validate[['TodoExist']]() should throw error if todo is null",{
-    # Given
-    validate <- Todo.Model.Validation.Service()
+  # Given
+  validate <- Todo.Model.Validation.Service()
 
-    todo  <- NULL
-    error <- "successful validation requires a data frame with todo"
+  todo  <- NULL
+  error <- "successful validation requires a data frame with todo"
 
-    # Then
-    todo |> 
-      validate[['TodoExist']]() |>
-        expect_error(error)
+  # Then
+  todo |> 
+    validate[['TodoExist']]() |>
+      expect_error(error)
 })
 
 test_that("todo.model.validation.service instance has HasId validator",{
-    # Given
-    validator <- Todo.Model.Validation.Service()
+  # Given
+  validator <- Todo.Model.Validation.Service()
 
-    # Then
-    validator[['HasId']] |>
-      is.null() |>
-        expect_equal(FALSE)
+  # Then
+  validator[['HasId']] |>
+    is.null() |>
+      expect_equal(FALSE)
 })
 
 test_that("todo |> validate[['HasId']]() should not throw error if todo has Id exist",{
-    # Given
-    validate <- Todo.Model.Validation.Service()
+  # Given
+  validate <- Todo.Model.Validation.Service()
 
-    todo  <- data.frame(
-      Id = 'Id'
-    )
+  todo  <- data.frame(
+    Id = 'Id'
+  )
     
-    # Then
-    todo |> 
-      validate[['HasId']]() |>
-        expect_no_error()
+  # Then
+  todo |> 
+    validate[['HasId']]() |>
+      expect_no_error()
 })
 
 test_that("todo |> validate[['HasId']]() should throw error if todo has no Id",{
-    # Given
-    validate <- Todo.Model.Validation.Service()
+  # Given
+  validate <- Todo.Model.Validation.Service()
 
-    todo  <- data.frame()
-    error <- "todo data frame has no Id"
+  todo  <- data.frame()
+  error <- "todo data frame has no Id"
 
-    # Then
-    todo |> 
-      validate[['HasId']]() |>
-        expect_error(error)
+  # Then
+  todo |> 
+    validate[['HasId']]() |>
+      expect_error(error)
 })
 
 test_that("todo.model.validation.service instance has TodoTask validator",{
