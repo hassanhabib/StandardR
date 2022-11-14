@@ -196,3 +196,40 @@ test_that("todo |> todo.service[['Add']]() should throw error if todo already ex
     todo.service[["Add"]]() |>
         expect_error(error)
 })
+
+test_that("todo.service instance has Retrieve operation", {
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.service <-
+    storage           |> 
+      Todo.Broker()   |> 
+        Todo.Service()
+
+  # Then
+  todo.service[['Retrieve']]  |>
+    is.null()            |>
+      expect_equal(FALSE)
+
+})
+
+test_that("todo.service[['Retrieve']]() should return a data.frame with zero of many todos", {
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.service <-
+    storage           |> 
+      Todo.Broker()   |> 
+        Todo.Service()
+
+  # Then
+  todo.service[['Retrieve']]() |>
+    is.data.frame()       |>
+      expect_equal(TRUE)
+})

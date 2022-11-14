@@ -15,6 +15,10 @@ Todo.Service <- \(broker){
 
     return(data.frame())
   }
+
+  services[['Retrieve']] <- \(...) {
+    ... |> broker[['Select']]()
+  }  
   
   return(services)
 }
