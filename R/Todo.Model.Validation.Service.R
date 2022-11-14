@@ -18,5 +18,10 @@ Todo.Model.Validation.Service <- \(){
     return(todo)
   }
 
+  validators[["HasStatus"]] <- \(todo) {
+    todo[["Status"]] |> is.null() |> exception[["StatusIsNull"]]()
+        return(todo)
+  }
+
   return(validators)  
 }
