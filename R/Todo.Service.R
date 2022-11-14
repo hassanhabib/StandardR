@@ -21,7 +21,11 @@ Todo.Service <- \(broker){
   }
 
   services[["RetrieveById"]] <- \(id) {
-    id |> broker[['SelectById']]()
+    id |>
+      validate[['IdExist']]()
+
+    id |> 
+      broker[['SelectById']]()
   }  
   
   return(services)
