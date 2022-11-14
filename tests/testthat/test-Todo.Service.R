@@ -301,3 +301,52 @@ test_that("id |> todo.service[['RetrieveById']]() throws IdIsNull exception if i
     todo.service[['RetrieveById']]() |>
       expect_error(error)
 })
+
+test_that("todo.service instance has Update operation",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.service <-
+    storage           |> 
+      Todo.Broker()   |> 
+        Todo.Service()
+
+  # Then
+  todo.service[['Update']]  |>
+    is.null()            |>
+      expect_equal(FALSE)
+})
+
+test_that("todo |> todo.service[['Update']]() should update todo if todo exist",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service() 
+
+  todo.broker <-
+    storage |> Todo.Broker() 
+  
+  todo.service <-
+    todo.broker |> Todo.Service()
+
+  existing.todo <- todo.broker[['Retrieve']]() |> tail(1)
+
+  updated.todo <- existing.todo
+  updated.todo[['Status']] <- 'Done'
+
+  # When
+  updated.todo |> todo.service[['Update']]()
+
+  # Then
+  retrieved.todo <-
+    existing.todo[['Id']] |>
+    todo.broker[['RetrieveById']]()
+
+  retrieved.todo[['Id']]     |> expect_equal(updated.todo[['Id']])
+  retrieved.todo[['Task']]   |> expect_equal(updated.todo[['Task']])
+  retrieved.todo[['Status']] |> expect_equal(updated.todo[['Status']])
+})
