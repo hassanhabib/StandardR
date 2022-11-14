@@ -3,6 +3,14 @@ Todo.Model.Validation.Service <- \(){
   
   validators <- list()
 
+  validators[["Todo"]]      <- \(todo) {
+    todo |>
+      validators[["TodoExist"]]() |>
+      validators[["HasId"]]()     |>
+      validators[["HasTask"]]()   |>
+      validators[["HasStatus"]]()  
+  }
+
   validators[["TodoExist"]] <- \(todo) {
     todo |> is.null() |> exception[["TodoIsNull"]]()
     return(todo)
