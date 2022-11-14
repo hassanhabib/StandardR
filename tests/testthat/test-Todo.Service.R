@@ -333,7 +333,7 @@ test_that("todo |> todo.service[['Update']]() should update todo if todo exist",
   todo.service <-
     todo.broker |> Todo.Service()
 
-  existing.todo <- todo.broker[['Retrieve']]() |> tail(1)
+  existing.todo <- todo.broker[['Select']]() |> tail(1)
 
   updated.todo <- existing.todo
   updated.todo[['Status']] <- 'Done'
@@ -344,7 +344,7 @@ test_that("todo |> todo.service[['Update']]() should update todo if todo exist",
   # Then
   retrieved.todo <-
     existing.todo[['Id']] |>
-    todo.broker[['RetrieveById']]()
+    todo.broker[['SelectById']]()
 
   retrieved.todo[['Id']]     |> expect_equal(updated.todo[['Id']])
   retrieved.todo[['Task']]   |> expect_equal(updated.todo[['Task']])

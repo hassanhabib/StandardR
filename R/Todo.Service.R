@@ -26,6 +26,13 @@ Todo.Service <- \(broker){
 
     id |> 
       broker[['SelectById']]()
+  }
+
+  services[['Update']] <- \(todo){
+    todo |>
+      broker[['Update']]()
+
+    return(data.frame())
   }  
   
   return(services)
