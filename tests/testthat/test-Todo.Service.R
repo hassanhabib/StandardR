@@ -123,3 +123,29 @@ test_that("todo |> todo.service[['Add']]() should throw error if todo has no Tas
     todo.service[["Add"]]() |>
       expect_error(error)
 })
+
+test_that("todo |> todo.service[['Add']]() should throw error if todo has no Status",{
+ # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.broker <-
+    storage |> Todo.Broker()
+      
+  todo.service <-
+    todo.broker |> Todo.Service()
+
+  todo <- data.frame(
+    Id = uuid::UUIDgenerate(),
+    Task = 'Task'
+  )
+
+  error <- 'todo data frame has no Status'
+
+  # Then
+  todo |> 
+    todo.service[["Add"]]() |>
+      expect_error(error)
+})
