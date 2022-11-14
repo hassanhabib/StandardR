@@ -9,6 +9,10 @@ Todo.Model.Exceptions <- \(){
   exceptions[["IdIsNull"]]     <- \(invoke) {
     if (invoke) { stop("todo data frame has no Id")}
   }
+
+  exceptions[["TaskIsNull"]]   <- \(invoke) {
+    if (invoke) { stop("todo data frame has no Task")}
+  }
   
   return(exceptions)
 }
