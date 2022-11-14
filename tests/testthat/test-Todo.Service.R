@@ -278,3 +278,26 @@ test_that("id |> todo.service[['RetrieveById']]() should return todo if todo exi
   retrieved.todo  |>
     expect_equal(todo)
 })
+
+test_that("id |> todo.service[['RetrieveById']]() throws IdIsNull exception if id is null",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.broker <-
+    storage |>
+      Todo.Broker()
+  
+  todo.service <-
+    todo.broker |>
+      Todo.Service()
+  
+  error <- 'successful validation requires an Id'
+
+  # Then
+  NULL |> 
+    todo.service[['RetrieveById']]() |>
+      expect_error(error)
+})
