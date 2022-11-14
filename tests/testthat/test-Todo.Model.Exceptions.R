@@ -109,3 +109,35 @@ test_that("TRUE |> exception[['TaskIsNull']]() should throw TaskIsNull error",{
     exception[["TaskIsNull"]]() |>
       expect_error(error)
 })
+
+test_that("todo.model.exceptions instance has StatusIsNull exception",{
+  # Given
+  exception <- Todo.Model.Exceptions()
+
+  # Then
+  exception[["StatusIsNull"]]  |>
+    is.null()             |>
+      expect_equal(FALSE)
+})
+
+test_that("FALSE |> exception[['StatusIsNull']]() should not throw error",{
+  # Given
+  exception <- Todo.Model.Exceptions()
+
+  # Then
+  FALSE |>
+    exception[["StatusIsNull"]]() |>
+      expect_no_error()
+})
+
+test_that("TRUE |> exception[['StatusIsNull']]() should throw StatusIsNull error",{
+  # Given
+  exception <- Todo.Model.Exceptions()
+
+  error <- 'todo data frame has no Status'
+
+  # Then
+  TRUE |>
+    exception[["StatusIsNull"]]() |>
+      expect_error(error)
+})
