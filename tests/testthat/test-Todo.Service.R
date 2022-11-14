@@ -69,3 +69,31 @@ test_that("todo |> todo.service[['Add']]() should add todo if todo is valid",{
     todo.broker[['SelectById']]() |>
       expect_equal(todo)
 })
+
+test_that("todo |> todo.service[['Add']]() should throw error if todo has no Id",{
+  # Given
+  configuration <- data.frame()
+  
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()    
+  
+  todo.broker <-
+    storage |> 
+      Todo.Broker()
+      
+  todo.service <-
+    todo.broker |> 
+        Todo.Service()
+
+  todo <- data.frame(
+    Task = 'Task',
+    Status = 'New'
+  )
+
+  error <- 'todo data frame has no Id'
+
+  # Then
+  todo |> 
+    todo.service[["Add"]]() |>
+      expect_error(error)
+})
