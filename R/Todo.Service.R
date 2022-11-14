@@ -18,6 +18,10 @@ Todo.Service <- \(broker){
 
   services[['Retrieve']] <- \(...) {
     ... |> broker[['Select']]()
+  }
+
+  services[["RetrieveById"]] <- \(id) {
+    id |> broker[['SelectById']]()
   }  
   
   return(services)
