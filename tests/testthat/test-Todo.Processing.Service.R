@@ -25,3 +25,25 @@
     is.list() |>
       expect_equal(TRUE)
  })
+
+test_that("todo.processing.service instance has Upsert service",{
+  # Given
+  configuration <- data.frame()
+
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()
+
+  todo.broker <-
+    storage |> Todo.Broker()  
+
+  todo.service <- 
+    todo.broker |> Todo.Service()
+
+  todo.processing.service <-
+    todo.service |> Todo.Processing.Service()
+
+  # Then
+  todo.processing.service[['Upsert']]  |>
+    is.null()            |>
+      expect_equal(FALSE)
+})
