@@ -11,17 +11,17 @@
   storage <- 
     configuration |> Storage::Mock.Storage.Service()
 
-  user.broker <-
+  todo.broker <-
     storage |> Todo.Broker()  
 
-  user.service <- 
-    user.broker |> Todo.Service()
+  todo.service <- 
+    todo.broker |> Todo.Service()
 
-  user.processing.service <-
-    user.service |> Todo.Processing.Service()
+  todo.processing.service <-
+    todo.service |> Todo.Processing.Service()
 
   # Then
-  user.processing.service |>
+  todo.processing.service |>
     is.list() |>
       expect_equal(TRUE)
  })
