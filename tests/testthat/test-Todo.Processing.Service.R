@@ -67,3 +67,30 @@ test_that("todo |> todo.processing.service[['Upsert']]() should add todo if not 
     todo.service[['RetrieveById']]() |>
       expect_equal(todo)
 })
+
+test_that("todo |> todo.processing.service[['Upsert']]() should update todo if exist",{
+  # Given
+  configuration <- data.frame()
+  storage <- configuration |> Storage::Mock.Storage.Service()
+
+  todo.service <-
+    storage |>
+      Todo.Broker() |> 
+      Todo.Service()
+    
+  todo.processing.service <-
+    todo.service |>
+      Todo.Processing.Service()
+
+  todo             <- todo.service[['Retrieve']]() |> head(1)
+  todo[['Status']] <- 'DONE'
+
+  # When
+  todo |> 
+    todo.processing.service[['Upsert']]()
+
+  # Then
+  todo[['Id']] |> 
+    todo.service[['RetrieveById']]() |>
+      expect_equal(todo)
+})
