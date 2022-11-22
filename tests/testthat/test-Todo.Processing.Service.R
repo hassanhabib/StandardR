@@ -3,3 +3,25 @@
     is.null() |>
         expect_equal(FALSE)
  })
+
+ test_that("broker |> Todo.Processing.Service() returns a list of user services",{
+  # Given
+  configuration <- data.frame()
+
+  storage <- 
+    configuration |> Storage::Mock.Storage.Service()
+
+  user.broker <-
+    storage |> Todo.Broker()  
+
+  user.service <- 
+    user.broker |> Todo.Service()
+
+  user.processing.service <-
+    user.service |> Todo.Processing.Service()
+
+  # Then
+  user.processing.service |>
+    is.list() |>
+      expect_equal(TRUE)
+ })
