@@ -4,7 +4,7 @@
         expect_equal(FALSE)
  })
 
- test_that("broker |> Todo.Processing.Service() returns a list of user services",{
+ test_that("todo.service |> Todo.Processing.Service() returns a list of user services",{
   # Given
   configuration <- data.frame()
 
