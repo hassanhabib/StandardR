@@ -9,6 +9,8 @@ Todo.Processing.Service <- \(todo.service){
     
     if (todo.count == 0) {
       todo |> todo.service[['Add']]()
+    } else {
+      todo |> todo.service[['Update']]()
     }
   }
 
