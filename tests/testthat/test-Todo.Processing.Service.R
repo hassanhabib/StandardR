@@ -37,3 +37,33 @@ test_that("todo.processing.service instance has Upsert service",{
     is.null()            |>
       expect_equal(FALSE)
 })
+
+test_that("todo |> todo.processing.service[['Upsert']]() should add todo if not exist",{
+  # Given
+  configuration <- data.frame()
+  storage <- configuration |> Storage::Mock.Storage.Service()
+
+  todo.service <-
+    storage |>
+      Todo.Broker() |> 
+      Todo.Service()
+    
+  todo.processing.service <-
+    todo.service |>
+      Todo.Processing.Service()
+
+  todo <- data.frame(
+    Id     = uuid::UUIDgenerate(),
+    Task   = 'Task.X',
+    Status = 'New'
+  )
+
+  # When
+  todo |> 
+    todo.processing.service[['Upsert']]()
+
+  # Then
+  todo[['Id']] |> 
+    todo.service[['RetrieveById']]() |>
+      expect_equal(todo)
+})
